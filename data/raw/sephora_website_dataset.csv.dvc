@@ -1,0 +1,5 @@
+outs:
+- md5: 29e968ecbf44079f115685a4d6d548be
+  size: 23255716
+  hash: md5
+  path: sephora_website_dataset.csv

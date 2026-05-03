@@ -1,53 +1,19 @@
-# --- Python & Sanal Ortamlar ---
+# --- Python ---
+__pycache__/
+*.pyc
 venv/
 .venv/
-env/
-bin/
-lib/
-share/
-build/
-dist/
-*.pyc
-__pycache__/
-.ipynb_checkpoints/
-
-# --- Veri Dosyaları (Kaggle Dataset & Yerel Veriler) ---
-# Ham verilerin git'e yüklenmemesi performansı artırır.
-*.csv
-*.xlsx
-*.json
-*.sqlite
-data/raw/
-data/processed/
-
-# --- Güvenlik & Konfigürasyon (EN KRİTİK KISIM) ---
-# Veritabanı şifreleri, API keyler ve yerel ayarlar asla git'e gitmemeli.
 .env
-config.py
-secrets.toml
-credentials.json
-*.log
 
-# --- MLflow & Model Dosyaları ---
-# Modeller çok büyük olduğu için git yerine DVC veya MLflow tracking kullanılmalı.
-mlruns/
-mlartifacts/
-models/
-*.pkl
-*.joblib
-*.h5
-*.pth
+# --- Data ---
+# Tüm CSV'leri engelle ama .dvc uzantılı olanlara izin ver
+*.csv
+!*.dvc
 
-# --- Streamlit & UI ---
-.streamlit/config.toml
-.streamlit/secrets.toml
+# --- DVC ---
+/data/raw/.gitignore
 
-# --- İşletim Sistemi Dosyaları ---
-.DS_Store
-Thumbs.db
-
-# --- IDE Ayarları ---
+# --- IDE ---
 .vscode/
 .idea/
-.cursor/
-.windsurf/
+.DS_Store
