@@ -4,9 +4,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import kagglehub
+import mlflow
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
+
+with mlflow.experiment("Sephora"):
 
 # Download latest version
 path = kagglehub.dataset_download("raghadalharbi/all-products-available-on-sephora-website")
