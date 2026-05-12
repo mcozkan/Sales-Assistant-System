@@ -14,8 +14,8 @@ from recommender_engine import Recommender, load_df, create_product_key
 load_dotenv()
 
 
-# 1. Recommender sistemini hazırla
-path = "../data/raw"
+# Preparing Recommender
+path = "data/raw"
 
 df = load_df(path)
 df = create_product_key(df)
@@ -23,7 +23,7 @@ df = create_product_key(df)
 rec = Recommender(df)
 rec.fit()
 
-
+# In order to use it as a tool:
 @tool
 def recommend_product(product_name : str, top_n : int = 5) -> str:
     """
@@ -44,7 +44,7 @@ llm = ChatOpenAI(
 )
 llm_tools = llm.bind_tools([recommend_product])
 
-# 4. Agent loop
+# Agent loop
 def run_agent(user_query: str):
     system_prompt = """
 You are a helpful Sephora product recommendation assistant.
@@ -65,7 +65,7 @@ Your job:
 
     response = llm_tools.invoke(messages)
 
-    # Eğer LLM tool çağırmak isterse
+    # the LLM may call the functions
     if response.tool_calls:
         tool_call = response.tool_calls[0]
 
