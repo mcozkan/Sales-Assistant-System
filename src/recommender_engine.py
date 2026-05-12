@@ -127,17 +127,28 @@ class Recommender:
 
         return self.df_rec.loc[product_indices,["brand", "name", "category", "price", "size"]]
 
-    def save_artifacts(self, artifacts_path):
+    def save_artifacts(self, artifacts_path="../artifacts/recommender"):
         os.makedirs(artifacts_path, exist_ok=True)
-
-        joblib.dump(self.tfidf, f"{artifacts_path}/tfidf_vectorizer.pkl")
-        save_npz(f"{artifacts_path}/tfidf_matrix.npz", self.tfidf_matrix)
-        joblib.dump(self.indices_map, f"{artifacts_path}/indices.pkl")
-        self.df_rec.to_csv(f"{artifacts_path}/df_rec.csv", index=False)
-
+        joblib.dump(
+            self.tfidf,
+            f"{artifacts_path}/tfidf_vectorizer.pkl"
+        )
+        save_npz(
+            f"{artifacts_path}/tfidf_matrix.npz",
+            self.tfidf_matrix
+        )
+        joblib.dump(
+            self.indices_map,
+            f"{artifacts_path}/indices.pkl"
+        )
+        self.df_rec.to_csv(
+            f"{artifacts_path}/df_rec.csv",
+            index=False
+        )
 
 
 if __name__ == "__main__":
+    mf.set_tracking_uri("sqlite:///mlflow.db")
     mf.set_experiment("recommender_v00")
 
     with mf.start_run(run_name="recommender_v00"):
@@ -145,19 +156,18 @@ if __name__ == "__main__":
 
         df = load_df(path)
         df = create_product_key(df)
+        data_check(df)
 
         rec = Recommender(df)
-        rec.prepare_data()
         rec.fit()
-        rec.save_artifacts("artifacts")
+        rec.save_artifacts("artifacts/recommender")
 
         mf.log_param("vectorizer", "TfidfVectorizer")
         mf.log_param("ngram_range", "(1, 2)")
         mf.log_param("min_df", 2)
         mf.log_param("similarity_metric", "cosine_similarity")
 
-        mf.log_artifacts("artifacts").save_artifacts("artifacts")
-
+        mf.log_artifacts("artifacts")
 
 
 
