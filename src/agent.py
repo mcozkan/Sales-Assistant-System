@@ -42,7 +42,7 @@ llm = ChatOpenAI(
     temperature=0.2,
     api_key=os.getenv("OPENAI_API_KEY")
 )
-llm_tools = llm.bind_tools([recommend_product])
+llm_tools = llm.bind_tools([recommend_product   ])
 
 # Agent loop
 def run_agent(user_query: str):
