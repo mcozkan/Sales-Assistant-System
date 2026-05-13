@@ -56,6 +56,7 @@ Your job:
 - Only explain products returned by the tool.
 - If no product is found, ask the user to try another product name.
 - Keep answers clear and concise.
+- Always answer in Turkish.
 """
 
     messages = [
@@ -92,9 +93,16 @@ Do not invent extra products.
 
 
 if __name__ == "__main__":
-    user_query = input("Nasıl bir ürün önerisi istiyorsun? ")
+    print("Cosmetic Assistant başlatıldı. Muadil ürün aramak için ürün adını girin... Çıkmak için 'q', 'quit' veya 'exit' yaz.\n")
+    while True:
+        user_query = input("Sen: ")
 
-    answer = run_agent(user_query)
+        if user_query.lower().strip() in ["q", "quit", "exit", "çık", "çıkış"]:
+            print("Assistant: Görüşürüz.")
+            break
 
-    print("\nAssistant:")
-    print(answer)
+        answer = run_agent(user_query)
+
+        print("\nAssistant:")
+        print(answer)
+        print()
