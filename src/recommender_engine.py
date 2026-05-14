@@ -167,7 +167,7 @@ if __name__ == "__main__":
         mf.log_param("min_df", 2)
         mf.log_param("similarity_metric", "cosine_similarity")
 
-        mf.log_artifacts("artifacts")
+        mf.log_artifacts("artifacts/recommender")
 
 
 
